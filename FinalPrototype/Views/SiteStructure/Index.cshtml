@@ -1,0 +1,53 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<FinalPrototype.Models.SiteStructureViewModel>
+@{
+    ViewData["Title"] = "Story Structures";
+}
+<h3>Story Structures</h3>
+<hr />
+<form>
+    <table id="userBrowseTable" class=" table table-responsive table-hover table-bordered">
+
+
+        <thead>
+            <tr class="table-active">
+                <th class="text-centre">Name</th>
+                <th class="text-centre">Author</th>
+                <th class="text-centre">Number of Acts</th>
+                <th class="text-centre">Details</th>
+                <th class="text-centre">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var structure in Model)
+                {
+                <tr>
+                    <td class="text-centre">@structure.Name</td>
+                    <td>@structure.by</td>
+                    <td>@structure.Acts</td>
+                    <td>@structure.Description</td>
+                    <td>
+                        <div class="btn-group btn-group-sm">
+                            <a asasp-controller="UserStory" asp-action="Details" asp-route-id="@structure.Id" class="btn btn-primary">Details</a>
+                        </div>
+                    </td>
+                </tr>
+                }
+            }
+            else
+            {
+            <tr>
+                <td colspan="6">
+                    <div>
+                        There are no Structures at this moment.
+                    </div>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</form>

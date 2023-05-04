@@ -1,0 +1,69 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<FinalPrototype.Models.UserStructureViewModel>
+@{
+    ViewData["Title"] = "User Stories";
+    var successMessage = TempData["successMessage"]?.ToString();
+    var errorMessage = TempData["errorMessage"]?.ToString();
+}
+<h3>@ViewData["Title"]</h3>
+<hr />
+@if (!string.IsNullOrWhiteSpace(@successMessage))
+{
+    <div class = "alert alert-success">
+        <strong> Success! </strong>@successMessage
+    </div>
+    <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+}
+else if (!string.IsNullOrWhiteSpace(@errorMessage))
+{
+    <div class="alert alert-danger">
+        <strong> Error! </strong>@errorMessage
+    </div>
+    <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+}
+<form>
+    <button asp-action="Create" asp-controller="UserStory" class="btn btn-primary mb-3">Create Story</button>
+    <table id="userBrowseTable" class="table table-responsive table-hover table-bordered table-sm">
+        <thead>
+            <tr class="table-active">
+                <th>Name</th>
+                <th>Author</th>
+                <th>Number of Acts</th>
+                <th>Details</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var structure in Model)
+                {   
+                    <tr>
+                        <td class="text-centre">@structure.Name</td>
+                        <td>@structure.by</td>
+                        <td>@structure.Acts</td>
+                        <td>@structure.Description</td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a asasp-controller="UserStory" asp-action="Edit" asp-route-id="@structure.Id" class="btn btn-primary">Edit</a>
+                                <a asasp-controller="UserStory" asp-action="Delete" asp-route-id="@structure.Id" class="btn btn-danger">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6">
+                        <div>
+                            There are no Structures at this moment.
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>

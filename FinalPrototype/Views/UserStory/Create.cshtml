@@ -1,0 +1,59 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model FinalPrototype.Models.UserStructureViewModel
+
+@{
+    ViewData["Title"] = "Create Structure";
+    var errorMessage = TempData["errorMessage"]?.ToString();
+}
+}
+
+<h3>
+    @ViewData["Title"]
+</h3>
+<hr />
+@if (!string.IsNullOrWhiteSpace(@errorMessage))
+{
+    <div class="alert alert-danger">
+        <strong> Error! </strong>@errorMessage
+    </div>
+    <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
+}
+<form action="Create" method="post">
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-control" asp-for="Name" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Author</label>
+        <input type="text" class="form-control" asp-for="by" />
+        <span asp-validation-for="by" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Number of Acts</label>
+        <input type="text" class="form-control" asp-for="Acts" />
+        <span asp-validation-for="Acts" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" asp-for="Description" input style="height:200px"> </textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="d-grid">
+        <button type ="submit" class="btn btn-primary">Submit</button>
+
+    </div>
+
+</form>
+@*
+//implements client side validation
+*@
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
